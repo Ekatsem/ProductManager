@@ -2,6 +2,7 @@ package ru.netology.domain.repository;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import ru.netology.NotFoundExceotion.NotFoundException;
 import ru.netology.domain.product.Product;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -110,5 +111,15 @@ public class ProductRepositoryTest {
         Product[] actual = repo.findAll();
 
         Assertions.assertArrayEquals(expected, actual);
+    }
+    @Test
+    public void shouldRemoveIncorrectId() {
+        ProductRepository repo = new ProductRepository();
+
+        repo.save(product1);
+        repo.save(product2);
+        repo.save(product3);
+
+        Assertions.assertThrows(NotFoundException.class, () -> repo.removeById(6));
     }
 }
